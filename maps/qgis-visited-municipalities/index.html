@@ -11,13 +11,57 @@
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
         #map {
-            width: 1494px;
-            height: 880px;
+            width: 100%;
+            height: 100%;
+        }
+        /* Title and legend boxes */
+        .map-title, .map-legend {
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 6px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            color: #222;
+        }
+        .map-title {
+            padding: 8px 14px;
+            max-width: 260px;
+        }
+        .map-title .title-text {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+        .map-title .subtitle-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .map-legend {
+            padding: 8px 12px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+        .map-legend .legend-swatch {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-right: 8px;
+            vertical-align: -2px;
+            border: 1px solid #232323;
+        }
+        @media (max-width: 480px) {
+            .map-title { max-width: 180px; padding: 6px 10px; }
+            .map-title .title-text { font-size: 14px; }
         }
         </style>
-        <title></title>
+        <title>Ontario Visited Municipalities</title>
     </head>
     <body>
         <div id="map">
@@ -33,21 +77,43 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
-        <script src="data/Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Ontario_Visited_Municipalities_0.js"></script>
         <script>
-        var map = L.map('map', {
-            zoomControl: false,
-            maxZoom: 28,
-            minZoom: 1,
-            preferCanvas: true
-        }).setView([43.5, -75.25], 7);
+        var MAP_SUBTITLE = '';
+        var LEGEND_ITEMS = [
+            { color: 'rgba(213,25,74,1.0)',   label: 'Visited' },
+            { color: 'rgba(246,180,204,1.0)', label: 'Yet to be visited' }
+        ];
+        // ------------------------------------------------------------
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 28
-}).addTo(map);
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[42.91877662802363,-85.78386109089824],[47.026989916348576,-72.37935722617493]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+
+        // Basemap (CARTO Positron: light grey, so the pink colours stand out).
+        // For standard OpenStreetMap instead, use:
+        //   https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        // and remove 'subdomains' below.
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }   ).addTo(map);
+
+        // Legend (bottom left)
+        var legendControl = L.control({position: 'bottomleft'});
+        legendControl.onAdd = function () {
+            var div = L.DomUtil.create('div', 'map-legend');
+            div.innerHTML = LEGEND_ITEMS.map(function (item) {
+                return '<div><span class="legend-swatch" style="background:' + item.color + '"></span>' + item.label + '</div>';
+            }).join('');
+            L.DomEvent.disableClickPropagation(div);
+            return div;
+        };
+        legendControl.addTo(map);
+
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         // remove popup's row if "visible-with-data"
         function removeEmptyRowsFromPopupContent(content, feature) {
@@ -124,27 +190,31 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'feet',
+            secondaryLengthUnit: 'miles',
+            primaryAreaUnit: 'sqfeet',
+            secondaryAreaUnit: 'sqmiles'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        function pop_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2"><strong>Municipal Name (English)</strong><br />' + (feature.properties['MUNICIPAL_NAME'] !== null ? autolinker.link(String(feature.properties['MUNICIPAL_NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
+        function pop_Ontario_Visited_Municipalities_0(feature, layer) {
+            var name = (feature.properties['MUNICIPAL_NAME'] || '').toLowerCase()
+            .replace(/(^|[\s\/(-])([a-zà-ÿ])/g, function (m, a, b) { return a + b.toUpperCase(); });
+            layer.bindPopup('<strong>' + name + '</strong>', { maxHeight: 400 });
         }
 
-        function style_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0_0(feature) {
+
+        function style_Ontario_Visited_Municipalities_0_0(feature) {
             switch(String(feature.properties['Visited'])) {
                 case '1':
                     return {
-                pane: 'pane_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0',
+                pane: 'pane_Ontario_Visited_Municipalities_0',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -159,7 +229,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     break;
                 case '0':
                     return {
-                pane: 'pane_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0',
+                pane: 'pane_Ontario_Visited_Municipalities_0',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -174,20 +244,20 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     break;
             }
         }
-        map.createPane('pane_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0');
-        map.getPane('pane_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0').style.zIndex = 400;
-        map.getPane('pane_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0').style['mix-blend-mode'] = 'normal';
-        var layer_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0 = new L.geoJson(json_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0, {
+        map.createPane('pane_Ontario_Visited_Municipalities_0');
+        map.getPane('pane_Ontario_Visited_Municipalities_0').style.zIndex = 400;
+        map.getPane('pane_Ontario_Visited_Municipalities_0').style['mix-blend-mode'] = 'normal';
+        var layer_Ontario_Visited_Municipalities_0 = new L.geoJson(json_Ontario_Visited_Municipalities_0, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0',
-            layerName: 'layer_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0',
-            pane: 'pane_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0',
-            onEachFeature: pop_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0,
-            style: style_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0_0,
+            dataVar: 'json_Ontario_Visited_Municipalities_0',
+            layerName: 'layer_Ontario_Visited_Municipalities_0',
+            pane: 'pane_Ontario_Visited_Municipalities_0',
+            onEachFeature: pop_Ontario_Visited_Municipalities_0,
+            style: style_Ontario_Visited_Municipalities_0_0,
         });
-        bounds_group.addLayer(layer_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0);
-        map.addLayer(layer_Non_SensitiveMUNIC_BND_LOWER_AND_SINGLE_0);
+        bounds_group.addLayer(layer_Ontario_Visited_Municipalities_0);
+        map.addLayer(layer_Ontario_Visited_Municipalities_0);
         setBounds();
         </script>
     </body>
