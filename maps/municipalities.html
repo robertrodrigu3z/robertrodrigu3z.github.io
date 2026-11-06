@@ -3,158 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ontario Municipalities Project — Robert Rodriguez</title>
+    <title>Ontario Municipalities Map</title>
     <link rel="stylesheet" href="../main.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-
-        /* All of this is just a template for now, I plan to do a QGIS map to host this */
-        
-        #map {
+        #map-container {
             width: 100%;
-            height: 500px;
+            height: 700px;
             border: 1px solid #eaeaea;
-            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        /* Custom styling for the popup content */
-        .leaflet-popup-content img {
+        iframe {
             width: 100%;
-            max-width: 200px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .leaflet-popup-content h3 {
-            font-size: 1rem;
-            margin-bottom: 0.2rem;
-        }
-        .leaflet-popup-content p {
-            font-size: 0.85rem;
-            color: #333;
-            margin-bottom: 0;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-
     <header>
-        <nav class="back-nav">
-            <a href="../index.html">← home</a>
-        </nav>
+        <nav><a href="../index.html">&larr; Home</a></nav>
         <h1>Ontario Municipalities Project</h1>
-        <p>A personal GIS challenge to map and visit all 444 municipalities in Ontario.</p>
+        <p>Tracking progress across all 444 municipal boundaries.</p>
     </header>
 
     <main>
-        <section>
-            <h2>project overview</h2>
-            <p>Using spatial data science, QGIS, and ArcGIS, I am tracking my progress across all 444 municipal boundaries in Ontario. Click on any highlighted municipality boundary on the map below to view my visit photos and field experiences.</p>
-        </section>
-
-        <section>
-            <h2>interactive boundary map</h2>
-            <div id="map"></div>
-        </section>
+        <div id="map-container">
+            <!-- This iframe loads the exported QGIS map folder cleanly -->
+            <iframe src="qgis-visited-municipalities/index.html"></iframe>
+        </div>
     </main>
-
-    <footer>
-        <p>&copy; 2026 Robert Rodriguez</p>
-    </footer>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Initialize map centered over Southern Ontario
-        var map = L.map('map').setView([44.5, -80.0], 7);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Sample GeoJSON polygons for municipalities you have visited. 
-        // (In production, you can load a full .geojson file using fetch() containing Ontario census subdivisions/municipal boundaries)
-        var visitedMunicipalities = {
-            "type": "FeatureCollection",
-            "features": [
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "name": "City of Orillia",
-                        "date": "August 2025",
-                        "desc": "Explored the historic downtown core and walked sections of the Lightfoot Trail system.",
-                        "photo": "../assets/orillia-visit.jpg"
-                    },
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [[
-                            [-79.45, 44.58], [-79.38, 44.58], 
-                            [-79.38, 44.63], [-79.45, 44.63], [-79.45, 44.58]
-                        ]]
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "name": "Township of Bruce Peninsula",
-                        "date": "July 2025",
-                        "desc": "Hiked parts of the Bruce Trail up to the Grotto and took in the turquoise waters.",
-                        "photo": "../assets/tobermory-visit.jpg"
-                    },
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [[
-                            [-81.70, 45.15], [-81.55, 45.15], 
-                            [-81.55, 45.30], [-81.70, 45.30], [-81.70, 45.15]
-                        ]]
-                    }
-                }
-            ]
-        };
-
-        // Style for the municipality shapes
-        function styleFeature(feature) {
-            return {
-                fillColor: "#818cf8",
-                weight: 2,
-                opacity: 1,
-                color: "#4f46e5",
-                fillOpacity: 0.35
-            };
-        }
-
-        // Function to bind data, photo, and popup interactivity to each polygon
-        function onEachFeature(feature, layer) {
-            if (feature.properties) {
-                var content = "<h3>" + feature.properties.name + "</h3>" +
-                    "<span>Visited: " + feature.properties.date + "</span><br>" +
-                    "<img src='" + feature.properties.photo + "' alt='Visit photo'><br>" +
-                    "<p>" + feature.properties.desc + "</p>";
-                layer.bindPopup(content);
-                
-                // Add a subtle hover effect
-                layer.on({
-                    mouseover: function(e) {
-                        var layer = e.target;
-                        layer.setStyle({ fillOpacity: 0.7 });
-                    },
-                    mouseout: function(e) {
-                        var layer = e.target;
-                        layer.setStyle({ fillOpacity: 0.35 });
-                    }
-                });
-            }
-        }
-
-        // Add GeoJSON layer to the map
-        L.geoJSON(visitedMunicipalities, {
-            style: styleFeature,
-            onEachFeature: onEachFeature
-        }).addTo(map);
-    </script>
-
 </body>
 </html>
