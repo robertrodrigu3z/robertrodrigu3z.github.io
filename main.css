@@ -1,49 +1,58 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    max-width: 650px;
-    margin: 4rem auto;
+    font-family: "Iowan Old Style", "Apple Garamond", "Baskerville", "Times New Roman", "Droid Serif", Times, serif;
+    max-width: 620px;
+    margin: 5rem auto;
     padding: 0 1.5rem;
-    line-height: 1.5;
-    color: #111;
-    background: #fff;
+    line-height: 1.65;
+    color: #fffae7;
+    background: #33312d;
+    -webkit-font-smoothing: antialiased;
 }
 
 header {
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
 }
 
 .back-nav {
     margin-bottom: 1rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-style: italic;
 }
 
 .back-nav a {
-    color: #666;
+    color: #555555;
     text-decoration: none;
 }
 
 .back-nav a:hover {
-    color: #000;
+    color: #3b6fb3;
 }
 
 h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: -1rem;
 }
 
 header p {
-    color: #555;
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-bottom: 0.75rem;
 }
 
 .links, .page-list {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .links a, .page-list a {
-    color: #000;
+    color: #fffed3;
     text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.links a:hover, .page-list a:hover {
+    color: #92855a;
 }
 
 .page-list {
@@ -56,17 +65,18 @@ header p {
 }
 
 section {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.75rem;
 }
 
 h2 {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    font-weight: normal;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #666;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 0.25rem;
-    margin-bottom: 1rem;
+    color: #f0e7dc;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.35rem;
+    margin-bottom: 1.2rem;
 }
 
 .entry {
@@ -76,36 +86,45 @@ h2 {
 .row {
     display: flex;
     justify-content: space-between;
-    font-weight: 500;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.row span {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.95rem;
 }
 
 .sub {
-    font-size: 0.9rem;
-    color: #555;
+    font-size: 0.95rem;
+    font-style: italic;
+    color:#fffae7;
     margin-bottom: 0.25rem;
 }
 
 p {
-    font-size: 0.95rem;
-    color: #333;
-    margin-bottom: 0.5rem;
+    font-size: 1.02rem;
+    color: #ffffff;
+    margin-bottom: 0.6rem;
 }
 
 ul {
     margin: 0;
     padding-left: 1.2rem;
-    font-size: 0.92rem;
-    color: #444;
+    font-size: 0.95rem;
+    color: #fffae7;
 }
 
 li {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.25rem;
 }
 
 footer {
-    margin-top: 4rem;
+    margin-top: 4.5rem;
     font-size: 0.85rem;
-    color: #777;
-    border-top: 1px solid #eaeaea;
-    padding-top: 1rem;
+    font-style: italic;
+    color: #fffae7;
+    border-top: 1px solid #ffffff;
+    padding-top: 1.2rem;
 }
