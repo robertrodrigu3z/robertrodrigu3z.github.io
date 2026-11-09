@@ -1,3 +1,6 @@
+/* =========================================================
+    Base
+   ========================================================= */
 html {
     background-color: #3d3831;
 }
@@ -15,6 +18,14 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =========================================================
+    Header & footer
+   ========================================================= */
 header {
     margin-bottom: 1.5rem;
     text-align: center;
@@ -54,6 +65,33 @@ header p {
     margin-bottom: 0.5rem;
 }
 
+header .tagline {
+    font-size: 1.05rem;
+    color: #5c4735;
+    margin-bottom: 0.15rem;
+}
+
+header .credentials {
+    font-size: 0.85rem;
+    font-style: normal;
+    letter-spacing: 0.04em;
+    color: #7d6a53;
+    margin-bottom: 0.75rem;
+}
+
+footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #7d6a53;
+    border-top: 1px solid #c7b89f;
+    text-align: center;
+}
+
+/* =========================================================
+    Shared elements
+   ========================================================= */
 .links, .page-list {
     font-size: 0.95rem;
 }
@@ -95,34 +133,6 @@ h2 {
     margin-bottom: 0.5rem;
 }
 
-.entry {
-    margin-bottom: 0.75rem;
-}
-
-.row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-weight: bold;
-    font-size: 1.02rem;
-    color: #2c221e;
-}
-
-.row span {
-    font-weight: normal;
-    font-style: italic;
-    font-size: 0.92rem;
-    color: #6b5842;
-}
-
-.sub {
-    font-size: 0.92rem;
-    font-style: italic;
-    color: #5c4735;
-    margin-top: -0.1rem;
-    margin-bottom: 0.2rem;
-}
-
 p {
     font-size: 1rem;
     color: #3b2f2f;
@@ -140,12 +150,564 @@ li {
     margin-bottom: 0.25rem;
 }
 
-footer {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
+/* Section divider */
+.ornament {
+    text-align: center;
+    color: #b5a48b;
+    font-size: 1.2rem;
+    margin: 0.5rem 0 1.25rem 0;
+}
+
+/* Tag pills (used on home + projects) */
+.tags {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 0.35rem;
+}
+
+.tags li {
+    margin: 0;
+    padding: 0.1rem 0.55rem;
+    font-size: 0.75rem;
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    color: #5c4735;
+    border: 1px solid #a39079;
+    border-radius: 2px;
+    background: #efe4d1;
+}
+
+/* =========================================================
+    Experience / education entries
+   ========================================================= */
+.entry {
+    margin-bottom: 0.9rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-weight: bold;
+    font-size: 1.02rem;
+    color: #2c221e;
+}
+
+.row span {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: #6b5842;
+    white-space: nowrap;
+}
+
+.sub {
+    font-size: 0.92rem;
+    font-style: italic;
+    color: #5c4735;
+    margin-top: -0.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.entry ul {
+    margin-top: 0.2rem;
+    font-size: 0.93rem;
+}
+
+.also {
+    font-size: 0.9rem;
+    color: #5c4735;
+    margin-top: 0.5rem;
+}
+
+/* =========================================================
+    Home page
+   ========================================================= */
+
+/* Navigation tiles */
+.nav-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.9rem 0.6rem;
+    border: 1px solid #c7b89f;
+    background: #f9f3e8;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.tile:hover {
+    transform: translateY(-2px);
+    border-color: #8a7558;
+    box-shadow: 0 4px 10px rgba(60, 40, 20, 0.18);
+}
+
+.tile-title {
+    font-variant: small-caps;
+    letter-spacing: 0.06em;
+    font-size: 1.02rem;
+    color: #2c221e;
+}
+
+.tile-desc {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #7d6a53;
+    margin-top: 0.15rem;
+}
+
+/* Highlights */
+.highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.highlights li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted #c7b89f;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.highlights li:last-child {
+    border-bottom: none;
+}
+
+.highlights em {
+    color: #6b5842;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+/* Featured projects */
+.featured {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #c7b89f;
+    background: #f9f3e8;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feature:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(60, 40, 20, 0.2);
+}
+
+.feature img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #c7b89f;
+    filter: sepia(0.15);
+}
+
+.feature-body {
+    padding: 0.7rem 0.85rem 0.8rem;
+    color: #2c221e;
+}
+
+.feature-body p {
+    font-size: 0.9rem;
+    margin: 0.2rem 0 0.5rem 0;
+    color: #3b2f2f;
+}
+
+.feature-body .tags {
+    margin: 0;
+}
+
+.more-link {
+    text-align: right;
+    font-style: italic;
+    font-size: 0.92rem;
+    margin-top: 0.75rem;
+}
+
+.more-link a {
+    color: #5c4735;
+    text-decoration: underline;
+    text-decoration-color: #a39079;
+    text-underline-offset: 3px;
+}
+
+.more-link a:hover {
+    color: #2c221e;
+    text-decoration-color: #2c221e;
+}
+
+/* Skills */
+.skill-group {
+    margin-bottom: 0.5rem;
+}
+
+.skill-label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #7d6a53;
+    margin-bottom: 0.25rem;
+}
+
+.skill-group .tags {
+    margin: 0 0 0.5rem 0;
+}
+
+/* ========================================================= 
+    Projects page gallery
+   ========================================================= */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.project {
+    border: 1px solid #c7b89f;
+    background: #f9f3e8;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(60, 40, 20, 0.12);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(60, 40, 20, 0.2);
+}
+
+.project img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #c7b89f;
+    filter: sepia(0.15);
+}
+
+.project-body {
+    padding: 0.9rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Row 1: title + year */
+.project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.project-head h3 {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #2c221e;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.year {
+    font-style: italic;
+    font-size: 0.92rem;
+    color: #6b5842;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Row 2: one-line meta */
+.meta {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #5c4735;
+    margin: 0.1rem 0 0.6rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Row 3: description, always 4 lines tall */
+.desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 0.6rem 0;
+    height: calc(0.95rem * 1.6 * 4);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Row 4: tags (room for 2 lines) */
+.project-body .tags {
+    min-height: 3.3rem;
+}
+
+/* Links pinned to the bottom */
+.project-links {
+    margin: auto 0 0 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e0d3bd;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.project-links a {
+    color: #5c4735;
+    text-decoration: underline;
+    text-decoration-color: #a39079;
+    text-underline-offset: 3px;
+}
+
+.project-links a:hover {
+    color: #2c221e;
+    text-decoration-color: #2c221e;
+}
+
+/* =========================================================
+    Mobile
+   ========================================================= */
+@media (max-width: 640px) {
+    body {
+        padding: 1.25rem 1.25rem;
+        margin: 0.75rem;
+    }
+
+    .nav-tiles,
+    .featured,
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .row,
+    .highlights li {
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+}
+
+/* =========================================================
+    Maps page
+   ========================================================= */
+.project img.map-thumb {
+    object-fit: contain;
+    background: #fff;
+}
+
+.figure {
+    margin: 0.75rem 0 1rem 0;
+    text-align: center;
+}
+
+.figure img {
+    border: 1px solid #c7b89f;
+    box-shadow: 0 2px 6px rgba(60, 40, 20, 0.15);
+    background: #fff;
+}
+
+.figure figcaption {
     font-size: 0.85rem;
     font-style: italic;
     color: #7d6a53;
-    border-top: 1px solid #c7b89f;
+    margin-top: 0.4rem;
+}
+
+.figure-links {
     text-align: center;
+    font-style: italic;
+    font-size: 0.92rem;
+}
+
+.figure-links a {
+    color: #5c4735;
+    text-decoration: underline;
+    text-decoration-color: #a39079;
+    text-underline-offset: 3px;
+}
+
+
+.data-sources {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #7d6a53;
+    margin-top: 1.25rem;
+}
+
+.data-sources ul {
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    padding-left: 1.2rem;
+}
+
+.data-sources a {
+    color: #5c4735;
+    text-decoration: underline;
+    text-decoration-color: #a39079;
+    text-underline-offset: 3px;
+}
+
+/* Embedded web map */
+.map-frame {
+    border: 1px solid #c7b89f;
+    box-shadow: 0 2px 6px rgba(60, 40, 20, 0.15);
+    background: #fff;
+}
+
+.map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 520px;
+    border: 0;
+}
+
+.map-note {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #7d6a53;
+    margin-top: 0.6rem;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .map-frame iframe {
+        height: 420px;
+    }
+}
+
+/* Live map preview inside a card */
+.map-preview {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-bottom: 1px solid #c7b89f;
+    overflow: hidden;
+}
+
+.map-preview iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: 0;
+    transform: scale(0.5);
+    transform-origin: top left;
+    pointer-events: none;
+}
+
+.map-preview-link {
+    position: absolute;
+    inset: 0;
+}
+
+/* =========================================================
+   Experience page
+   ========================================================= */
+.jump {
+    margin-top: 0.5rem;
+    font-size: 0.88rem;
+}
+
+.award-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.award-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px dotted #c7b89f;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.award-list li:last-child {
+    border-bottom: none;
+}
+
+.award-list em {
+    color: #6b5842;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+.also a {
+    color: #5c4735;
+    text-decoration: underline;
+    text-decoration-color: #a39079;
+    text-underline-offset: 3px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 640px) {
+    .award-list li {
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+}
+
+* Grouped roles */
+.section-note {
+    font-size: 0.88rem;
+    font-style: italic;
+    color: #7d6a53;
+    margin: 0 0 0.75rem 0;
+}
+
+.role {
+    margin: 0.5rem 0 0 0.9rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid #d8cbb4;
+}
+
+.role .row {
+    font-size: 0.97rem;
+}
+
+.role .row span.role-title {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 0.97rem;
+    color: #2c221e;
+    white-space: normal;
+}
+
+.role ul {
+    margin-top: 0.15rem;
 }

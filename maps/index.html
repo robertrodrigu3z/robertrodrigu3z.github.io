@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS Maps | Robert Rodriguez</title>
+    <link rel="stylesheet" href="../main.css">
+</head>
+<body>
+
+    <header>
+        <div class="back-nav"><a href="../index.html">&larr; Back to home</a></div>
+        <h1>Applied Geomatics &amp; GIS Maps</h1>
+        <p>Maps and spatial analysis from my geomatics minor.</p>
+    </header>
+
+    <main>
+        <section class="gallery">
+
+            <article class="project">
+                <div class="map-preview">
+                    <iframe src="qgis-visited-municipalities/index.html" title="Preview of the visited Ontario municipalities map" loading="lazy" tabindex="-1"></iframe>
+                </div>
+                <div class="project-body">
+                    <div class="project-head"><h3>Visited Ontario Municipalities</h3><span class="year">2026</span></div>
+                    <p class="meta">Interactive · Web Mapping</p>
+                    <p class="desc">An interactive map tracking the Ontario municipalities I've visited since my 18th birthday, currently at 33 out of 444 within nearly a year. Built in QGIS and exported to the web with qgis2web.</p>
+                    <ul class="tags"><li>QGIS</li><li>qgis2web</li><li>Leaflet</li></ul>
+                    <p class="project-links">
+                        <a href="municipalities/index.html">open interactive map</a>
+                    </p>
+                </div>
+            </article>
+
+            <article class="project">
+                <a href="#bluejay">
+                    <img class="map-thumb" src="../images/bluejay-layout.png" alt="Blue Jay Highway Map layout" loading="lazy">
+                </a>
+                <div class="project-body">
+                    <div class="project-head"><h3>Blue Jay Highway Map</h3><span class="year">2026</span></div>
+                    <p class="meta">Spatial Analysis · Cartography</p>
+                    <p class="desc">Maps Blue Jay observations within 1 km of major highways against highway density by Census Subdivision, in the Canada Albers Equal Area Conic projection for Southern Ontario.</p>
+                    <ul class="tags"><li>ArcGIS</li><li>ModelBuilder</li></ul>
+                    <p class="project-links">
+                        <a href="#bluejay">view layout &amp; model</a>
+                    </p>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="ornament">❦</div>
+
+        <section id="bluejay">
+            <h2>Blue Jay Highway Map</h2>
+
+            <figure class="figure">
+                <a href="../images/bluejay-layout.png" target="_blank">
+                    <img src="../images/bluejay-layout.png" alt="Map layout showing Blue Jay observations near highways and highway density by Census Subdivision in Southern Ontario">
+                </a>
+                <figcaption>Final map layout. Click to view the full-size image.</figcaption>
+            </figure>
+
+            <h2>The Analysis</h2>
+            <p>The map compares where Blue Jays are observed with how dense the highway network is across Southern Ontario. The analysis is automated as a ModelBuilder workflow in ArcGIS, so it can be re-run on new data.</p>
+            <ul>
+                <li>Selected Blue Jay observations within 1 km of major highways</li>
+                <li>Calculated highway density for each Census Subdivision</li>
+                <li>Worked in Canada Albers Equal Area Conic so that area-based measures are accurate</li>
+            </ul>
+
+            <figure class="figure">
+                <a href="../images/bluejay-model.svg" target="_blank">
+                    <img src="../images/bluejay-model.svg" alt="ModelBuilder workflow for the Blue Jay Highway Map">
+                </a>
+                <figcaption>The ModelBuilder workflow behind the map. Click to view full size.</figcaption>
+            </figure>
+
+            <div class="data-sources">
+                <strong>Data sources</strong>
+                <ul>
+                    <li>Blue Jay observations: <a href="https://ebird.org/about/download-ebird-data-products" target="_blank">eBird Basic Dataset</a>, Cornell Lab of Ornithology, Ithaca, New York.</li>
+                    <li>Highways: <a href="https://geohub.lio.gov.on.ca/datasets/mnrf::ontario-road-network-orn-road-net-element/about" target="_blank">Ontario Road Network (ORN) Road Net Element</a>, Ontario Ministry of Natural Resources, via Land Information Ontario GeoHub.</li>
+                    <li>Census Subdivision boundaries: <a href="https://hub.ontariobroadbandresourcehub.ca/datasets/c205b155ce134c9c8075457082ab4f91/about" target="_blank">Southern Ontario Census Divisions (2021)</a>, Ontario Broadband Resource Hub (Blue Sky Net), derived from Statistics Canada 2021 Census boundary files.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Robert Rodriguez</p>
+    </footer>
+
+</body>
+</html>
